@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 public abstract class World extends Pane{
+// asdfbjasdf., 
 //	An AnimationTimer that calls act() on the world first and then on each actor in the world every frame.
 //	A variable that keeps track of whether the timer is running.
 //	A Set of KeyCode objects that holds all the keys that are currently being pressed.
