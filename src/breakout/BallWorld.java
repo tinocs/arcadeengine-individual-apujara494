@@ -3,6 +3,7 @@ import engine.World;
 public class BallWorld extends World{
 	int width;
 	int height;
+	Score score;
 	public BallWorld(int w, int h){
 		width = w;
 		height = h;
@@ -16,6 +17,12 @@ public class BallWorld extends World{
 
 	@Override
 	public void onDimensionsInitialized() {
+		
+		score = new Score();
+		score.setX(width/3);
+		score.setY(height/3);
+
+		
 		Ball b = new Ball();
 		b.setX(getWidth()/4);
 		b.setY(getHeight()/4);
@@ -27,5 +34,9 @@ public class BallWorld extends World{
 		add(p);
 		
 	}
+	public Score getScore() {
+		return score;
+	}
+	
 
 }

@@ -32,6 +32,7 @@ public abstract class World extends Pane{
 		isHeightSet = false;
 		
 		keysPressed = new HashSet<KeyCode>();
+		setFocusTraversable(true);
 		
 		isTimerStopped = false;
 		
@@ -40,6 +41,7 @@ public abstract class World extends Pane{
 		widthProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
+			
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				if(newValue.intValue()>0) {
 					isWidthSet = true;
@@ -108,18 +110,16 @@ public abstract class World extends Pane{
 			public void handle(long now) {
 				// TODO Auto-generated method stub
 				act(now);
+
+				for(int i =getChildren().size()-1 ;i>=0;i--) {
+					Actor x = (Actor) getChildren().get(i);
 				
-				for(int i = 0;i<getChildren().size();i++) {
+						x.act(now);
 					
-					
-						Actor x = (Actor) getChildren().get(i);
-					    x.act(now);
-					
-					}
 					
 				}
 				
-			
+			}
 			
 		};
 		
@@ -130,22 +130,32 @@ public abstract class World extends Pane{
 	
 	public void	add(Actor actor) {
 		getChildren().add(actor);
+		actor.addedToWorld();
 	}
 	public <A extends Actor> java.util.List<A>	getObjects(java.lang.Class<A> cls){
-		return null;
-	}
-	public <A extends Actor> java.util.List<A> getObjectsAt(double x, double y, java.lang.Class<A> cls){
-		List<A> list = new ArrayList<A>();
-		for(Node n: getChildren()) {
-			if(cls.isInterface()) {
-				list.add((A)n);
+		List<A> list = new ArrayList<>();
+		for(Node n :getChildren()) {
+			if(cls.isInstance(n)) {
+				list.add(cls.cast(n));
+				
 			}
 		}
-		
+		return list;
+	}
+	public <A extends Actor> java.util.List<A> getObjectsAt(double x, double y, java.lang.Class<A> cls){
+		List<A> list = new ArrayList<>();
+		for(Node n :getChildren()) {
+			if(cls.isInstance(n)) {
+				 if (n.getBoundsInParent().contains(x, y)) {
+						list.add(cls.cast(n));
+		      }
+				
+			}
+		}
 		return list;
 	}
 	public boolean	isKeyPressed(javafx.scene.input.KeyCode code) {
-		return false;
+		return keysPressed.contains(code);
 	}
 	public boolean	isStopped() {
 		return isTimerStopped;

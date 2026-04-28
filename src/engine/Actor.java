@@ -37,15 +37,14 @@ public abstract class Actor extends ImageView{
 		
 	}
 	public <A extends Actor> java.util.List<A> getIntersectingObjects(java.lang.Class<A> cls){
-		List<A> allObjects = getWorld().getObjects(cls);
-		List<A> intersectingObjects = new ArrayList<A>();
-		for(int i = 0;i<allObjects.size();i++) {
-			A actor = allObjects.get(i);
-			if(actor.getBoundsInParent().intersects(this.getBoundsInParent()) && actor!=this ) {
-				intersectingObjects.add(actor);
+		List<A> possibleActors  = getWorld().getObjects(cls);
+		List<A> touchingActors = new ArrayList<A>();
+		for(A obj : possibleActors) {
+			if (obj != this && obj.getBoundsInParent().intersects(this.getBoundsInParent())) {
+				touchingActors.add(obj);
 			}
 		}
-		return intersectingObjects;
+		return touchingActors;
 	}
 	public void move(double dx, double dy) {
 		setX(getX()+dx);
