@@ -1,5 +1,9 @@
 package breakout;
+import java.util.List;
+
 import engine.World;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 public class BallWorld extends World{
 	int width;
 	int height;
@@ -41,6 +45,18 @@ public class BallWorld extends World{
 		brick.setY(100);
 		add(brick);
 		
+		setOnMouseMoved(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				// Add your code here
+				List<Paddle> list = getObjects(Paddle.class);
+			    if (list.size()>0) {
+		            Paddle p = list.get(0);
+		            p.setX(event.getX() - p.getWidth() / 2);
+		        }
+				
+			}});
+
 		
 		
 	}

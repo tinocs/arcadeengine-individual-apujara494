@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class breakoutDriver extends Application{
 	public static void main(String[] args){
 		launch(args);
+		System.out.println("started");
 	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
