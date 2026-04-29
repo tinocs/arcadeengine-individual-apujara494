@@ -19,8 +19,11 @@ public class BallWorld extends World{
 	public void onDimensionsInitialized() {
 		
 		score = new Score();
-		score.setX(width/3);
-		score.setY(height/3);
+		score.setX(getWidth()/2);
+		
+		score.setY(height/2);
+	
+	//	getWorld().getChildren.add(score);
 
 		
 		Ball b = new Ball();
@@ -32,6 +35,13 @@ public class BallWorld extends World{
 		p.setX(getWidth()/2);
 		p.setY(getHeight()/2);
 		add(p);
+		
+		Brick brick = new Brick();
+		brick.setX(100);
+		brick.setY(100);
+		add(brick);
+		
+		
 		
 	}
 	public Score getScore() {

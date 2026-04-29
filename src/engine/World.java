@@ -33,6 +33,7 @@ public abstract class World extends Pane{
 		
 		keysPressed = new HashSet<KeyCode>();
 		setFocusTraversable(true);
+		//requestFocus();
 		
 		isTimerStopped = false;
 		
@@ -72,16 +73,11 @@ public abstract class World extends Pane{
 		});
 		
 		sceneProperty().addListener(new ChangeListener<Scene>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
-				// TODO Auto-generated method stub
-				requestFocus();
-				
-				
-			}
-		  
-		   
+		    @Override
+		    public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
+		        requestFocus();
+		        
+		    }
 		});
 		 
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -123,7 +119,7 @@ public abstract class World extends Pane{
 			
 		};
 		
-		}
+	}
 		
 	
 	public abstract void act(long now);
@@ -176,6 +172,12 @@ public abstract class World extends Pane{
 		isTimerStopped = true;
 
 	}
+	
+//	setOnMouseMoved(new EventHandler<MouseEvent>() {
+//		@Override
+//		public void handle(MouseEvent event) {
+//			// Add your code here
+//		}});
 	
 }
 
