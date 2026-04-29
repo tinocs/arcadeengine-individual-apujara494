@@ -57,8 +57,11 @@ public class BallWorld extends World{
 				
 			}});
 
+		Score s = new Score();
+		s.setX(500);
+		s.setY(500);
 		
-		
+		//getChildren().add(s);		
 	}
 	public Score getScore() {
 		return score;

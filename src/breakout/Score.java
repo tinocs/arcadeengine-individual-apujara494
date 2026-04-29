@@ -6,7 +6,7 @@ public class Score extends Text {
 	int fontSize;
 	public Score(){
 		score  = 0;
-		setFont(new Font(fontSize+10));
+		setFont(new Font(fontSize+100));
 		updateDisplay();
 		
 	}

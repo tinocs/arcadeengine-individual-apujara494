@@ -107,12 +107,11 @@ public abstract class World extends Pane{
 				// TODO Auto-generated method stub
 				act(now);
 
-				for(int i =getChildren().size()-1 ;i>=0;i--) {
-					Actor x = (Actor) getChildren().get(i);
-				
-						x.act(now);
-					
-					
+				for(int i = getChildren().size()-1; i >= 0; i--) {
+				    Node x = getChildren().get(i);
+				    if(x instanceof Actor) {
+				        ((Actor) x).act(now);
+				    }
 				}
 				
 			}

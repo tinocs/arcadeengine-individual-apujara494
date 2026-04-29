@@ -26,13 +26,14 @@ public class Ball extends Actor{
 		}
 		if(getX()>getWorld().getWidth()- getImage().getWidth()) {
 			dx = -dx;
-			BallWorld bw = (BallWorld)(getWorld());
-			Score s = bw.getScore();
-			s.updateDisplay();
-			
 		}
 		if(getY()>getWorld().getHeight()- getImage().getHeight()) {
 			dy = -dy;
+			BallWorld bw = (BallWorld) getWorld();
+			Score s = bw.getScore();
+			int newScore = s.getScore() - 1000;
+			s.setScore(newScore);
+			
 		}
 		// After moving and bouncing off of walls during the act() step in the Ball class, add code so that a Ball will reverse its y-direction whenever it intersects a Paddle.
 
@@ -43,6 +44,12 @@ public class Ball extends Actor{
 		
 		Brick b = getOneIntersectingObject(Brick.class);
 		if(b!=null) {
+			dy = -dy;
+			BallWorld bw = (BallWorld) getWorld();
+			Score s = bw.getScore();
+			int newScore = s.getScore() + 100;
+			s.setScore(newScore);
+			
 			if(getX()>b.getX() && getX()<b.getX()+b.getWidth()) {
 				dy = -dy;
 			}
