@@ -8,6 +8,8 @@ public class BallWorld extends World{
 	int width;
 	int height;
 	Score score;
+	int level;
+	Lives life;
 	public BallWorld(int w, int h){
 		width = w;
 		height = h;
@@ -15,8 +17,19 @@ public class BallWorld extends World{
 		setHeight(height);
 	}
 	@Override
+	//In your BallWorld's act() method, check if the number of Brick objects is zero.  If so, increment the level and load the bricks for that level.  If the level is 3 or more, take the user back to the main menu after they see the game over message and press a key.
+
 	public void act(long now) {
-		
+		List<Brick> bricks = getObjects(Brick.class);
+		if(bricks.size()==0) {
+			if(level==3) {
+				
+			}
+			else {
+				level++;
+				loadNewLevel();
+			}
+		}
 	}
 
 	@Override
@@ -57,15 +70,28 @@ public class BallWorld extends World{
 				
 			}});
 
-		Score s = new Score();
-		s.setX(500);
-		s.setY(500);
 		
+		score = new Score();
+		score.setX(20);
+		score.setY(40);
+		getChildren().add(score);
+		//add(score);
 		//getChildren().add(s);		
+		
+		life = new Lives();
+		life.setX(400);
+		life.setY(40);
+		getChildren().add(life);
+		
 	}
 	public Score getScore() {
 		return score;
 	}
-	
-
+	public void loadNewLevel() {
+		List<Brick> bricks = getObjects(Brick.class);
+		for(int i = 0;i<bricks.size();i++) {
+			bricks.remove(i);
+			i--;
+		}
+	}
 }

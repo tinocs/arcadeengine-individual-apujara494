@@ -1,24 +1,23 @@
 package breakout;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-public class Score extends Text {
-	int score;
+public class Lives  extends Text{
+	int lives;
 	int fontSize;
-	public Score(){
-		score  = 0;
+	public Lives(){
+		lives  = 3;
 	    setFont(new Font(30));
 		updateDisplay();
 		
 	}
 	public void updateDisplay() {
-		setText("Score:" + score);
+		setText("Lives:" + lives);
 	}
-	public int getScore() {
-		return score;
+	public int getLives() {
+		return lives;
 	}
-	public void setScore(int s) {
-		score =s;
+	public void setLives(int s) {
+		lives =s;
 		updateDisplay();
 	}
-
 }
