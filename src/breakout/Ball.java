@@ -4,12 +4,26 @@ import java.io.File;
 import java.util.List;
 
 import engine.Actor;
+import engine.Sound;
 import javafx.scene.image.Image;
 
 public class Ball extends Actor {
 	int dx;
 	int dy;
+//	
+//	ball_bounce.wav	Plays when the ball bounces off the World edges or the paddle
+//	brick_hit.wav	Plays when the ball bounces off a Brick and destroys the Brick
+//	lose_life.wav	Plays when the ball reaches the bottom of the screen and the player loses a life
+//	game_lost.wav	Plays when the game is lost
+//	game_won.wav	Plays when the game is won (both levels cleared)
+	
+//	Sound quickSound = new Sound("/resources/smw_coin.wav");
 
+		Sound bounceSound = new Sound("/resources/ball_bounce.wav", 1);
+	    Sound brickSound  = new Sound("/resources/brick_hit.wav", 1);    
+	    Sound loseSound   = new Sound("/resources/lose_life.wav", 1);
+
+	
 	public Ball() {
 		dx = 2;
 		dy = 3;
@@ -43,22 +57,31 @@ public class Ball extends Actor {
 			move(dx, dy);
 			// bounce of four walls
 			if (getX() < 0) {
+				
 				dx = -dx;
+				bounceSound.play();
 			}
 			if (getY() < 0) {
 				dy = -dy;
+				bounceSound.play();
+
 			}
 			if (getX() > getWorld().getWidth() - getImage().getWidth()) {
 				dx = -dx;
+				bounceSound.play();
+
 			}
 			if (getY() > getWorld().getHeight() - getImage().getHeight()) {
 				dy = -dy;
+				bounceSound.play();
+
 				BallWorld bw = (BallWorld) getWorld();
 				Score s = bw.getScore();
 				int newScore = s.getScore() - 1000;
 				s.setScore(newScore);
 				  bw.setisPaused(true);
 				// bw.setlife--;
+				  loseSound.play(); 
 
 			}
 			// After moving and bouncing off of walls during the act() step in the Ball
