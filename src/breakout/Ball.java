@@ -1,11 +1,18 @@
 package breakout;
 
 import java.io.File;
+import javafx.util.Duration;
 import java.util.List;
 
 import engine.Actor;
 import engine.Sound;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+
 
 public class Ball extends Actor {
 	int dx;
@@ -73,7 +80,7 @@ public class Ball extends Actor {
 			}
 			if (getY() > getWorld().getHeight() - getImage().getHeight()) {
 				dy = -dy;
-				bounceSound.play();
+				
 
 				BallWorld bw = (BallWorld) getWorld();
 				Score s = bw.getScore();
@@ -90,12 +97,37 @@ public class Ball extends Actor {
 
 			Paddle p = getOneIntersectingObject(Paddle.class);
 			if (p != null) {
+				bounceSound.play();
 				dy = -dy;
 			}
 
 			Brick b = getOneIntersectingObject(Brick.class);
 			if (b != null) {
+				 FadeTransition fade = new FadeTransition(Duration.millis(300), b);
+				
+				 
+				 ScaleTransition shrink = new ScaleTransition(Duration.millis(300), b);
+				 
+				 ParallelTransition parallelt = new ParallelTransition(fade,shrink);
+				 
+				 parallelt.setOnFinished(new EventHandler<ActionEvent>() {
+					 @Override
+						public void handle(ActionEvent event) {
+							b.getWorld().remove(b);
+
+						}
+					});
+				 }
+				 
+//				 myTransition.setOnFinished(new EventHandler<ActionEvent>() {
+//						@Override
+//						public void handle(ActionEvent event) {
+//							thisBrick.getWorld().remove(thisBrick);
+//						}
+//					});
+
 				dy = -dy;
+				brickSound.play();
 				BallWorld bw = (BallWorld) getWorld();
 				Score s = bw.getScore();
 				int newScore = s.getScore() + 100;
@@ -120,4 +152,4 @@ public class Ball extends Actor {
 
 	}
 
-}
+
